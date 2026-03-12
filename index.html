@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIDIC Contract Readiness Assessment — Thamer AlMujalli</title>
+<meta name="description" content="How contract-ready are you on site? 12 questions across 4 areas. Takes under 3 minutes.">
+<meta property="og:title" content="FIDIC Contract Readiness Assessment">
+<meta property="og:description" content="How contract-ready are you on site? 12 questions, under 3 minutes. Free self-assessment by Thamer AlMujalli.">
+<meta property="og:type" content="website">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #0D8B8B;
+    --teal-dark: #0A6E6E;
+    --amber: #E09040;
+    --navy: #2B4066;
+    --red: #C84040;
+    --dark: #1A2332;
+    --slate: #4A5568;
+    --muted: #8A95A5;
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --border: #E2E8F0;
+    --border-focus: #0D8B8B;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .shell {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ── Top brand strip ── */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 2rem;
+  }
+  .brand-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+  .brand-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: .04em;
+  }
+  .brand-creds {
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* ── Header ── */
+  .hdr { margin-bottom: 1.75rem; }
+  .hdr-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: .5rem;
+  }
+  .hdr h1 {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--dark);
+    margin-bottom: .6rem;
+  }
+  .hdr p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  /* ── Progress ── */
+  .progress-wrap {
+    margin: 1.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+  .progress-track {
+    flex: 1;
+    height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 5px;
+    background: var(--teal);
+    border-radius: 3px;
+    transition: width .4s ease;
+    width: 0%;
+  }
+  .progress-text {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  /* ── Question card ── */
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .q-meta {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .75rem;
+  }
+  .q-cat {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .q-sep { color: var(--border); font-size: 12px; }
+  .q-num { font-size: 12px; color: var(--muted); }
+  .q-text {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--dark);
+    margin-bottom: 1.1rem;
+  }
+
+  /* ── Options ── */
+  .options { display: flex; flex-direction: column; gap: .5rem; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    padding: .75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--slate);
+    background: transparent;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+  }
+  .opt:hover { border-color: var(--teal); background: rgba(13,139,139,.04); color: var(--dark); }
+  .opt.selected { border-color: var(--teal); background: rgba(13,139,139,.08); color: var(--dark); }
+  .opt.selected .opt-radio { background: var(--teal); border-color: var(--teal); box-shadow: inset 0 0 0 3px #fff; }
+  .opt-radio {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all .15s;
+    background: transparent;
+  }
+
+  /* ── Nav ── */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .5rem;
+  }
+  .btn {
+    padding: .6rem 1.4rem;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--slate);
+    transition: all .15s;
+    font-family: inherit;
+  }
+  .btn:hover:not(:disabled) { border-color: var(--teal); color: var(--teal); }
+  .btn:disabled { opacity: .3; cursor: default; }
+  .btn-primary {
+    background: var(--teal);
+    color: #fff;
+    border-color: var(--teal);
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--teal-dark); border-color: var(--teal-dark); color: #fff; }
+
+  /* ── Results ── */
+  #results { display: none; }
+
+  .score-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+
+  svg.ring { display: block; margin: 0 auto 1rem; }
+
+  .tier-badge {
+    display: inline-block;
+    padding: .35rem 1rem;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .03em;
+    margin-top: .5rem;
+  }
+  .tier-A { background: rgba(13,139,139,.12); color: #0A6E6E; }
+  .tier-B { background: rgba(224,144,64,.14); color: #B8600A; }
+  .tier-C { background: rgba(200,64,64,.12); color: #A02020; }
+
+  .score-label { font-size: 13px; color: var(--muted); margin-top: .5rem; }
+
+  /* ── Breakdown ── */
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .75rem;
+  }
+  .breakdown-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .bd-row {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: .75rem;
+  }
+  .bd-row:last-child { margin-bottom: 0; }
+  .bd-label { font-size: 13px; color: var(--slate); width: 170px; flex-shrink: 0; }
+  .bd-track { flex: 1; height: 7px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .bd-fill { height: 7px; border-radius: 4px; transition: width 1s ease; }
+  .bd-pct { font-size: 13px; font-weight: 700; width: 38px; text-align: right; flex-shrink: 0; }
+
+  /* ── Insight cards ── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
+    margin-bottom: 1.25rem;
+  }
+  .ic {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem 1.1rem 1.1rem 1.35rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .ic-gap { border-left: 4px solid var(--amber); }
+  .ic-next { border-left: 4px solid var(--teal); }
+  .ic-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .45rem;
+  }
+  .ic-body { font-size: 13px; line-height: 1.6; color: var(--slate); }
+
+  /* ── CTA ── */
+  .cta-card {
+    background: var(--dark);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+  .cta-card h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: .5rem; }
+  .cta-card p { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 1.1rem; line-height: 1.55; }
+  .cta-btns { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
+  .cta-btn {
+    padding: .65rem 1.4rem;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all .15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .cta-btn-primary { background: var(--teal); color: #fff; border: 2px solid var(--teal); }
+  .cta-btn-primary:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
+  .cta-btn-ghost { background: transparent; color: rgba(255,255,255,.75); border: 2px solid rgba(255,255,255,.2); }
+  .cta-btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer p { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .footer a { color: var(--teal); text-decoration: none; }
+
+  @media (max-width: 520px) {
+    .insight-grid { grid-template-columns: 1fr; }
+    .bd-label { width: 130px; }
+    .hdr h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- Brand -->
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <div class="brand-name">Thamer AlMujalli</div>
+    <div class="brand-creds">PMO-CP · PMI-CP · PMP · P6</div>
+  </div>
+
+  <!-- Header -->
+  <div class="hdr" id="hdr">
+    <div class="hdr-label">FIDIC Contract Readiness</div>
+    <h1>How contract-ready are you on site?</h1>
+    <p>12 questions across 4 areas — Clause Awareness, Documentation Habit, Commercial Awareness, and Saudi Context. Takes under 3 minutes. No right or wrong, just honest answers.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="pbar"></div></div>
+      <div class="progress-text" id="ptext">0 of 12</div>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div id="quiz-wrap"></div>
+
+  <!-- Nav -->
+  <div class="nav" id="nav">
+    <button class="btn" id="btn-prev" onclick="navigate(-1)" disabled>← Back</button>
+    <button class="btn btn-primary" id="btn-next" onclick="navigate(1)" disabled>Next →</button>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+
+    <div class="score-section">
+      <svg class="ring" width="150" height="150" viewBox="0 0 150 150">
+        <circle cx="75" cy="75" r="60" fill="none" stroke="#E2E8F0" stroke-width="11"/>
+        <circle cx="75" cy="75" r="60" fill="none" stroke="#0D8B8B" stroke-width="11"
+          stroke-linecap="round" stroke-dasharray="377" stroke-dashoffset="377"
+          transform="rotate(-90 75 75)" id="ring-arc"/>
+        <text x="75" y="70" text-anchor="middle" font-size="30" font-weight="700" fill="#1A2332" font-family="-apple-system,sans-serif" id="ring-pct">0%</text>
+        <text x="75" y="90" text-anchor="middle" font-size="13" fill="#8A95A5" font-family="-apple-system,sans-serif" id="ring-score">0 / 36</text>
+      </svg>
+      <div class="score-label">Contract Readiness Score</div>
+      <div class="tier-badge" id="tier-badge"></div>
+    </div>
+
+    <div class="breakdown-card">
+      <div class="section-title">Score by area</div>
+      <div id="breakdown"></div>
+    </div>
+
+    <div class="insight-grid" id="insights"></div>
+
+    <div class="cta-card">
+      <h3>Want to go deeper?</h3>
+      <p>Download the full 10-slide FIDIC guide — practical reference for site engineers, project managers, and client teams working on Saudi construction projects.</p>
+      <div class="cta-btns">
+        <a class="cta-btn cta-btn-primary" href="https://www.linkedin.com/in/thamer-almujalli" target="_blank">Connect on LinkedIn</a>
+        <button class="cta-btn cta-btn-ghost" onclick="reset()">Retake assessment</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Built by <a href="https://www.linkedin.com/in/thamer-almujalli" target="_blank">Thamer AlMujalli</a> · PMO-CP · PMI-CP · PMP · P6<br>
+    FIDIC Books &amp; Saudi Construction Practice · 2025</p>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  {cat:"Clause awareness", text:"When you receive a verbal instruction on site, what do you typically do?",
+   opts:[["Follow it and log it mentally",1],["Confirm it in writing within 24 hours",3],["Ask for a written instruction before acting",3],["Action it — there's no time for paperwork",0]]},
+  {cat:"Clause awareness", text:"Clause 20 of FIDIC (Claims) requires written notice within how many days of a triggering event?",
+   opts:[["14 days",0],["28 days",3],["60 days",1],["It depends on the contract type",1]]},
+  {cat:"Clause awareness", text:"A site instruction arrives that changes the method of working. Under FIDIC, this is:",
+   opts:[["A directive — just follow it",0],["A potential Variation under Cl. 13",3],["Only a variation if it adds cost",1],["The Engineer's prerogative — not your concern",0]]},
+  {cat:"Clause awareness", text:"How familiar are you with the specific FIDIC book governing your current project?",
+   opts:[["Very — I've read the relevant clauses",3],["Somewhat — I know the general form",2],["I know it exists but haven't read it",1],["I didn't know there were different books",0]]},
+
+  {cat:"Documentation habit", text:"When a delay event occurs on site, your first action is:",
+   opts:[["Log it in a claims diary and notify the contract manager",3],["Mention it at the next progress meeting",1],["Wait to see if it affects the programme",0],["Raise it informally with the Engineer",1]]},
+  {cat:"Documentation habit", text:"How often do you produce written records of site events with commercial implications?",
+   opts:[["Daily — site diary, RFIs, meeting minutes",3],["When something significant happens",2],["Rarely — I focus on delivery",1],["Never — that's the QS's job",0]]},
+  {cat:"Documentation habit", text:"Your drawing package is revised mid-construction. You:",
+   opts:[["Log the revision, check scope impact, confirm if a VO is needed",3],["File it and continue construction",1],["Ask the Engineer informally if there's extra cost",1],["Update the programme only",0]]},
+
+  {cat:"Commercial awareness", text:"Payment has been withheld without a valid reason for 56 days. Under FIDIC Red Book, you have the right to:",
+   opts:[["Suspend works after proper notice",3],["Write a formal complaint to the Employer",1],["Accept it and absorb the cash impact",0],["I wasn't aware there was a right here",0]]},
+  {cat:"Commercial awareness", text:"The Engineer issues a variation that clearly impacts the programme. You:",
+   opts:[["Submit a cost claim and a separate time claim",3],["Submit only the cost claim — time follows",1],["Negotiate verbally with the Engineer",0],["Accept it as part of normal construction risk",0]]},
+  {cat:"Commercial awareness", text:"How confident are you reading a FIDIC Special Conditions clause?",
+   opts:[["Confident — I do it regularly",3],["I can manage with help",2],["I'd need a contract manager to interpret it",1],["I wouldn't know where to start",0]]},
+
+  {cat:"Saudi context", text:"In Saudi public works contracts, the governing law is typically:",
+   opts:[["FIDIC standard as published",0],["Saudi law, with FIDIC adapted via Special Conditions",3],["International arbitration rules (ICC)",1],["Not sure — I've never checked",0]]},
+  {cat:"Saudi context", text:"On a giga-project (NEOM, Red Sea, Qiddiya), you'd expect contract terms to be:",
+   opts:[["Standard FIDIC Red Book unchanged",0],["Significantly modified with enhanced employer controls",3],["Yellow Book with minor adjustments",1],["The same as any Saudi ministry contract",0]]},
+];
+
+const CATS = ["Clause awareness","Documentation habit","Commercial awareness","Saudi context"];
+const CAT_COLORS = ["#0D8B8B","#E09040","#2B4066","#C84040"];
+
+let answers = new Array(QUESTIONS.length).fill(null);
+let current = 0;
+
+function render() {
+  const q = QUESTIONS[current];
+  const pct = (current / QUESTIONS.length) * 100;
+  document.getElementById('pbar').style.width = pct + '%';
+  document.getElementById('ptext').textContent = (current + 1) + ' of ' + QUESTIONS.length;
+
+  document.getElementById('quiz-wrap').innerHTML = `
+    <div class="q-card">
+      <div class="q-meta">
+        <span class="q-cat">${q.cat}</span>
+        <span class="q-sep">·</span>
+        <span class="q-num">Question ${current + 1}</span>
+      </div>
+      <div class="q-text">${q.text}</div>
+      <div class="options">
+        ${q.opts.map((o, i) => `
+          <button class="opt ${answers[current] === i ? 'selected' : ''}" onclick="pick(${i})">
+            <div class="opt-radio"></div>
+            <span>${o[0]}</span>
+          </button>`).join('')}
+      </div>
+    </div>`;
+
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').disabled = answers[current] === null;
+  const isLast = current === QUESTIONS.length - 1;
+  document.getElementById('btn-next').textContent = isLast ? 'See my results →' : 'Next →';
+}
+
+function pick(i) {
+  answers[current] = i;
+  document.querySelectorAll('.opt').forEach((el, idx) => {
+    el.classList.toggle('selected', idx === i);
+    if (idx === i) el.querySelector('.opt-radio').style.cssText = 'background:#0D8B8B;border-color:#0D8B8B;box-shadow:inset 0 0 0 3px #fff';
+    else el.querySelector('.opt-radio').style.cssText = '';
+  });
+  document.getElementById('btn-next').disabled = false;
+}
+
+function navigate(dir) {
+  if (dir === 1 && current === QUESTIONS.length - 1) { showResults(); return; }
+  current = Math.max(0, Math.min(QUESTIONS.length - 1, current + dir));
+  render();
+}
+
+function showResults() {
+  document.getElementById('quiz-wrap').style.display = 'none';
+  document.getElementById('nav').style.display = 'none';
+  document.getElementById('hdr').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+
+  const maxPossible = QUESTIONS.reduce((s, q) => s + Math.max(...q.opts.map(o => o[1])), 0);
+  const total = answers.reduce((s, a, i) => s + (a !== null ? QUESTIONS[i].opts[a][1] : 0), 0);
+  const pct = Math.round((total / maxPossible) * 100);
+
+  setTimeout(() => {
+    const offset = 377 - (pct / 100) * 377;
+    const arc = document.getElementById('ring-arc');
+    arc.style.transition = 'stroke-dashoffset 1.3s ease';
+    arc.setAttribute('stroke-dashoffset', offset);
+  }, 150);
+
+  document.getElementById('ring-pct').textContent = pct + '%';
+  document.getElementById('ring-score').textContent = total + ' / ' + maxPossible;
+
+  const tier = pct >= 75 ? 'A' : pct >= 45 ? 'B' : 'C';
+  const tierLabels = { A: 'Contract-Ready', B: 'Developing Awareness', C: 'High Exposure Risk' };
+  const badge = document.getElementById('tier-badge');
+  badge.textContent = tierLabels[tier];
+  badge.className = 'tier-badge tier-' + tier;
+
+  const catScores = CATS.map((cat, ci) => {
+    const idxs = QUESTIONS.reduce((arr, q, i) => q.cat === cat ? [...arr, i] : arr, []);
+    const earned = idxs.reduce((s, i) => s + (answers[i] !== null ? QUESTIONS[i].opts[answers[i]][1] : 0), 0);
+    const possible = idxs.reduce((s, i) => s + Math.max(...QUESTIONS[i].opts.map(o => o[1])), 0);
+    return { cat, earned, possible, pct: Math.round((earned / possible) * 100), color: CAT_COLORS[ci] };
+  });
+
+  document.getElementById('breakdown').innerHTML = catScores.map(cs => `
+    <div class="bd-row">
+      <div class="bd-label">${cs.cat}</div>
+      <div class="bd-track"><div class="bd-fill" style="width:0%;background:${cs.color}" data-target="${cs.pct}"></div></div>
+      <div class="bd-pct" style="color:${cs.color}">${cs.pct}%</div>
+    </div>`).join('');
+
+  setTimeout(() => {
+    document.querySelectorAll('.bd-fill').forEach(el => {
+      el.style.width = el.dataset.target + '%';
+    });
+  }, 200);
+
+  const weakest = [...catScores].sort((a, b) => a.pct - b.pct)[0];
+  const gapText = {
+    "Clause awareness": "Focus on Cl. 1, 8, 13, 14, and 20 — five clauses that cover 80% of site-level risk.",
+    "Documentation habit": "Start a daily claims diary. Every delay event, verbal instruction, and drawing revision needs a written record.",
+    "Commercial awareness": "Time and cost claims are separate. A variation without a time notice is a missed entitlement.",
+    "Saudi context": "Check your Special Conditions. Saudi law governs — and it modifies standard FIDIC in ways that matter on site."
+  };
+  const nextText = {
+    A: "Go deeper on dispute avoidance — DAB/DAAB procedures and how to build a strong contemporaneous record.",
+    B: "Work through the FIDIC guide clause by clause. Start with the 28-day time-bar in Cl. 20.",
+    C: "Start with the basics: what FIDIC is, why it governs your project, and what Cl. 20 requires of you."
+  };
+
+  document.getElementById('insights').innerHTML = `
+    <div class="ic ic-gap">
+      <div class="ic-title">Biggest gap</div>
+      <div class="ic-body">${gapText[weakest.cat]}</div>
+    </div>
+    <div class="ic ic-next">
+      <div class="ic-title">Next step</div>
+      <div class="ic-body">${nextText[tier]}</div>
+    </div>`;
+}
+
+function reset() {
+  answers = new Array(QUESTIONS.length).fill(null);
+  current = 0;
+  document.getElementById('quiz-wrap').style.display = 'block';
+  document.getElementById('nav').style.display = 'flex';
+  document.getElementById('hdr').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
